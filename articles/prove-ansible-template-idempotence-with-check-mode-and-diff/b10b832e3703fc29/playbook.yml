@@ -1,0 +1,19 @@
+---
+- name: Keep a local application configuration consistent
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    app_port: 8080
+    app_workers: 2
+  tasks:
+    - name: Render application settings
+      ansible.builtin.template:
+        src: app.conf.j2
+        dest: "{{ playbook_dir }}/app.conf"
+        mode: '0640'
+      notify: Report configuration change
+  handlers:
+    - name: Report configuration change
+      ansible.builtin.debug:
+        msg: Configuration changed; a real service could be reloaded here

@@ -1,0 +1,54 @@
+First apply
+$ ansible-playbook -i localhost, playbook.yml
+
+PLAY [Keep a local application configuration consistent] ***********************
+
+TASK [Render application settings] *********************************************
+changed: [localhost]
+
+RUNNING HANDLER [Report configuration change] **********************************
+ok: [localhost] => {
+    "msg": "Configuration changed; a real service could be reloaded here"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+
+Second identical apply
+$ ansible-playbook -i localhost, playbook.yml
+
+PLAY [Keep a local application configuration consistent] ***********************
+
+TASK [Render application settings] *********************************************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+
+Preview a changed variable
+$ ansible-playbook -i localhost, playbook.yml --check --diff -e app_port=9090
+
+PLAY [Keep a local application configuration consistent] ***********************
+
+TASK [Render application settings] *********************************************
+--- before: /tmp/networknuts-lab-duadz_lj/app.conf
++++ after: /tmp/networknuts-lab-duadz_lj/ansible-tmp/ansible-local-30454_on_chl6/tmpot0549qv/app.conf.j2
+@@ -1,2 +1,2 @@
+-port=8080
++port=9090
+ workers=2
+
+changed: [localhost]
+
+RUNNING HANDLER [Report configuration change] **********************************
+ok: [localhost] => {
+    "msg": "Configuration changed; a real service could be reloaded here"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
