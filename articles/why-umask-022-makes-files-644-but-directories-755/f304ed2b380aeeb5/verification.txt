@@ -1,0 +1,5 @@
+umask 022: new file 644; new directory 755
+umask 027: new file 640; new directory 750
+umask 077: new file 600; new directory 700
+Explicit chmod 644 changed the existing 600 file to 644.
+PASS: umask removed permission bits at creation; explicit chmod changed an existing file.

@@ -1,0 +1,7 @@
+$ find mask-022 mask-027 mask-077 -printf "%m %p\n"
+755 mask-022
+644 mask-022/sample.txt
+750 mask-027
+640 mask-027/sample.txt
+700 mask-077
+644 mask-077/sample.txt
