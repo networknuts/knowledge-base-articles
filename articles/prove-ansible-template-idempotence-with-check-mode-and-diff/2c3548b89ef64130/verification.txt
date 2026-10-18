@@ -1,0 +1,8 @@
+First apply: changed=1; handler ran=True
+Second identical apply: changed=0; handler ran=False
+Preview a changed variable: changed=1; handler ran=True
+After check mode, app.conf is unchanged:
+port=8080
+workers=2
+File mode: 0o640
+PASS: second apply made no change; check mode predicted a change without writing it.
