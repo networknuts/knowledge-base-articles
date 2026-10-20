@@ -1,0 +1,6 @@
+valid.json: exit=0 (expected 0)
+malformed.json: exit=1 (expected 1)
+string-port.json: exit=1 (expected 1)
+boolean-port.json: exit=1 (expected 1)
+large-port.json: exit=1 (expected 1)
+PASS: syntax validity and application-level validation are separate checks.

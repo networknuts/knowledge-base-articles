@@ -1,0 +1,19 @@
+$ python3 validate_config.py valid.json
+Configuration accepted: port=8080
+exit=0
+
+$ python3 validate_config.py malformed.json
+Invalid configuration: Expecting value: line 1 column 9 (char 8)
+exit=1
+
+$ python3 validate_config.py string-port.json
+Invalid configuration: port must be an integer from 1 to 65535
+exit=1
+
+$ python3 validate_config.py boolean-port.json
+Invalid configuration: port must be an integer from 1 to 65535
+exit=1
+
+$ python3 validate_config.py large-port.json
+Invalid configuration: port must be an integer from 1 to 65535
+exit=1
