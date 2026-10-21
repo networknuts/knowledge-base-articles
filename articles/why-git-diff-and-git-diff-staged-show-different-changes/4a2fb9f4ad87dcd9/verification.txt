@@ -1,0 +1,7 @@
+HEAD: workers=1
+Index: workers=2
+Working tree: workers=3
+$ git status --short
+MM settings.txt
+?? run.py
+PASS: the staged and unstaged diffs compare different snapshots.
