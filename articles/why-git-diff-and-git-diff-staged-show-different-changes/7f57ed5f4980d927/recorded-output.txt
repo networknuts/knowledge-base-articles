@@ -1,0 +1,17 @@
+$ git diff --staged -- settings.txt
+diff --git a/settings.txt b/settings.txt
+index 485f7e0..5eb630c 100644
+--- a/settings.txt
++++ b/settings.txt
+@@ -1 +1 @@
+-workers=1
++workers=2
+
+$ git diff -- settings.txt
+diff --git a/settings.txt b/settings.txt
+index 5eb630c..5134829 100644
+--- a/settings.txt
++++ b/settings.txt
+@@ -1 +1 @@
+-workers=2
++workers=3

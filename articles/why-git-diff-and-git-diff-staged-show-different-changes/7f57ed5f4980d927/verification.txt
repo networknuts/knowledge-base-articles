@@ -1,0 +1,48 @@
++ set -euo pipefail
++ git init -q
++ git config user.name 'Example Author'
++ git config user.email author@example.invalid
++ printf 'workers=1\n'
++ git add settings.txt
++ git commit -qm Baseline
++ printf 'workers=2\n'
++ git add settings.txt
++ printf 'workers=3\n'
++ git status --short -- settings.txt
+MM settings.txt
+++ git status --short -- settings.txt
++ test 'MM settings.txt' = 'MM settings.txt'
+++ git show HEAD:settings.txt
++ test workers=1 = workers=1
+++ git show :settings.txt
++ test workers=2 = workers=2
+++ cat settings.txt
++ test workers=3 = workers=3
++ printf '$ git diff --staged -- settings.txt\n'
++ git diff --staged -- settings.txt
++ tee details.txt
++ printf '\n$ git diff -- settings.txt\n'
++ git diff -- settings.txt
+$ git diff --staged -- settings.txt
+diff --git a/settings.txt b/settings.txt
+index 485f7e0..5eb630c 100644
+--- a/settings.txt
++++ b/settings.txt
+@@ -1 +1 @@
+-workers=1
++workers=2
+
+$ git diff -- settings.txt
+diff --git a/settings.txt b/settings.txt
+index 5eb630c..5134829 100644
+--- a/settings.txt
++++ b/settings.txt
+@@ -1 +1 @@
+-workers=2
++workers=3
++ git diff --staged -- settings.txt
++ grep -q '^+workers=2$'
++ git diff -- settings.txt
++ grep -q '^+workers=3$'
++ printf 'PASS: HEAD, index and working tree contain three different observed values.\n'
+PASS: HEAD, index and working tree contain three different observed values.
