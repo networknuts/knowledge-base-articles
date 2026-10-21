@@ -1,0 +1,3 @@
+Before ConfigMap edit: blue
+Existing Pod after ConfigMap edit: blue
+Recreated Pod: green
