@@ -1,0 +1,44 @@
++ set -euo pipefail
++ umask 022
++ mkdir mask-022
++ touch mask-022/sample.txt
++ stat -c '%a %n' mask-022/sample.txt mask-022
+644 mask-022/sample.txt
+755 mask-022
++ umask 027
++ mkdir mask-027
++ touch mask-027/sample.txt
++ stat -c '%a %n' mask-027/sample.txt mask-027
+640 mask-027/sample.txt
+750 mask-027
++ umask 077
++ mkdir mask-077
++ touch mask-077/sample.txt
++ stat -c '%a %n' mask-077/sample.txt mask-077
+600 mask-077/sample.txt
+700 mask-077
+++ stat -c %a mask-022/sample.txt
++ test 644 = 644
+++ stat -c %a mask-022
++ test 755 = 755
+++ stat -c %a mask-027/sample.txt
++ test 640 = 640
+++ stat -c %a mask-027
++ test 750 = 750
+++ stat -c %a mask-077/sample.txt
++ test 600 = 600
+++ stat -c %a mask-077
++ test 700 = 700
++ chmod 644 mask-077/sample.txt
+++ stat -c %a mask-077/sample.txt
++ test 644 = 644
++ find mask-022 mask-027 mask-077 -printf '%m %p\n'
++ tee details.txt
+755 mask-022
+644 mask-022/sample.txt
+750 mask-027
+640 mask-027/sample.txt
+700 mask-077
+644 mask-077/sample.txt
++ printf 'PASS: native shell creation modes verified; chmod changed an existing file.\n'
+PASS: native shell creation modes verified; chmod changed an existing file.
