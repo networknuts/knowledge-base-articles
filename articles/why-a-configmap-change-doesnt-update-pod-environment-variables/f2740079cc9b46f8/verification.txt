@@ -1,0 +1,51 @@
++ set -euo pipefail
++ export KUBECONFIG=/tmp/networknuts-lab-ja4hol76/lab-kubeconfig
++ KUBECONFIG=/tmp/networknuts-lab-ja4hol76/lab-kubeconfig
+++ kubectl config current-context
++ test kind-nn-blog-lab = kind-nn-blog-lab
++ kubectl -n article-demo create configmap app-settings --from-literal=mode=blue
+configmap/app-settings created
++ kubectl apply -f pod.yaml
+pod/config-reader created
++ kubectl -n article-demo wait --for=condition=Ready pod/config-reader --timeout=90s
+pod/config-reader condition met
++ kubectl -n article-demo exec config-reader -- printenv APP_MODE
++ tee before.txt
+blue
+++ cat before.txt
++ test blue = blue
++ kubectl -n article-demo patch configmap app-settings --type merge -p '{"data":{"mode":"green"}}'
+configmap/app-settings patched
++ kubectl -n article-demo get configmap app-settings -o 'jsonpath={.data.mode}'
+green+ printf $'\n'
+
+++ kubectl -n article-demo get configmap app-settings -o 'jsonpath={.data.mode}'
++ test green = green
++ kubectl -n article-demo exec config-reader -- printenv APP_MODE
++ tee unchanged.txt
+blue
+++ cat unchanged.txt
++ test blue = blue
++ kubectl -n article-demo delete pod config-reader --wait=true
+pod "config-reader" deleted from article-demo namespace
++ kubectl apply -f pod.yaml
+pod/config-reader created
++ kubectl -n article-demo wait --for=condition=Ready pod/config-reader --timeout=90s
+pod/config-reader condition met
++ kubectl -n article-demo exec config-reader -- printenv APP_MODE
++ tee after.txt
+green
+++ cat after.txt
++ test green = green
++ printf 'Before ConfigMap edit: '
++ cat before.txt
++ tee details.txt
+Before ConfigMap edit: blue
++ printf 'Existing Pod after ConfigMap edit: '
++ cat unchanged.txt
+Existing Pod after ConfigMap edit: blue
++ printf 'Recreated Pod: '
++ cat after.txt
+Recreated Pod: green
++ printf $'PASS: ConfigMap changed, existing environment stayed blue, recreated Pod received green.\n'
+PASS: ConfigMap changed, existing environment stayed blue, recreated Pod received green.
