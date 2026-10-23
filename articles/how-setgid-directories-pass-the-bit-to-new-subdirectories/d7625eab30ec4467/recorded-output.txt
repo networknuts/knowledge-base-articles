@@ -1,0 +1,30 @@
+shared before-clear 2775 drwxrwsr-x
+effective_uid=1000
+effective_gid=1000
+before_clear_parent_mode=2775
+after_clear_parent_mode=775
+shared_parent_mode=775
+plain_parent_mode=775
+shared/nested_before_clear 2755 drwxr-sr-x
+shared/nested_before_clear_after_clear 2755 drwxr-sr-x
+plain/nested_before_clear 755 drwxr-xr-x
+shared/nested_after_clear 755 drwxr-xr-x
+shared_child_sgid=true
+plain_child_sgid=false
+shared_child_mode=2755
+plain_child_mode=755
+existing_child_sgid_after_clear=true
+existing_child_mode_after_clear=2755
+parent_sgid_after_clear=false
+new_child_sgid_after_clear=false
+new_child_mode_after_clear=755
+bounded_command_evidence=find /work/setgid-sandbox/setgid-lab -maxdepth 3 -type d | sort
+bounded_command_evidence_start
+/work/setgid-sandbox/setgid-lab
+/work/setgid-sandbox/setgid-lab/plain
+/work/setgid-sandbox/setgid-lab/plain/nested_before_clear
+/work/setgid-sandbox/setgid-lab/shared
+/work/setgid-sandbox/setgid-lab/shared/nested_after_clear
+/work/setgid-sandbox/setgid-lab/shared/nested_before_clear
+bounded_command_evidence_end
+PASS: directory setgid-bit propagation and clearing verified

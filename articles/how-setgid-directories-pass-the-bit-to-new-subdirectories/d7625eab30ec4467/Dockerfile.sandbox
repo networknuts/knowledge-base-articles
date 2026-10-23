@@ -1,0 +1,4 @@
+FROM python:3.14-slim
+RUN apt-get update && apt-get install -y --no-install-recommends ansible-core git coreutils findutils && rm -rf /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE=1 ANSIBLE_NOCOLOR=1 ANSIBLE_LOCAL_TEMP=/tmp/ansible-local
+WORKDIR /work
